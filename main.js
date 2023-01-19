@@ -33,7 +33,7 @@ function postitionError()
 
 function localButtonClick() {
     document.body.classList.add("blur-sm");
-    
+
     navigator.geolocation.getCurrentPosition(positionSuccess, postitionError);
 }
 
@@ -86,6 +86,7 @@ function getIPCity(lat, lon) {
     .then(response => response.json())
     // Restructure result
     .then(jsonData => {
+        console.log(jsonData);
         return {
             city: jsonData.city,
             locality: jsonData.locality,
@@ -176,7 +177,11 @@ function renderSearchCity({lat, lon, name}) {
 
 function renderLocation({city, locality}) {
     //setValue("current-locality", locality);
-    setValue("current-city", city);
+    if (city != "") {
+        setValue("current-city", city);
+    } else if (locality != "") {
+        setValue("current-city", locality);
+    }    
 }
 
 function renderWeather({ current, daily, hourly })
