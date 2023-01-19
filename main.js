@@ -1,6 +1,3 @@
-
-//https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Australia%2FSydney
-
 localButtonClick();
 
 function positionSuccess({ coords }) {
@@ -13,6 +10,7 @@ function positionSuccess({ coords }) {
 
         getIPCity(coords.latitude, coords.longitude)
             .then(renderLocation);
+        
         getWeather(coords.latitude, coords.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone)
             .then(renderWeather)
             .catch(e => {
@@ -20,31 +18,27 @@ function positionSuccess({ coords }) {
                 alert("Error getting weather")
                 document.body.classList.remove("blur-sm");
             });
-
-        document.getElementById("search-text").value = "";
     }    
 }
 function postitionError()
 {
-    alert("Cannot getting your location. Please allow us to use you location and refresh the page")
-
+    alert("Cannot access your location. Please enable location access and refresh the page. Or you can use city search")
     document.body.classList.remove("blur-sm");
 }
 
 function localButtonClick() {
     document.body.classList.add("blur-sm");
-
     navigator.geolocation.getCurrentPosition(positionSuccess, postitionError);
 }
 
 function searchButtonClick() {
+    document.body.classList.add("blur-sm");
     const city = document.getElementById("search-text").value;
     searchCity(city);
+    document.getElementById("search-text").value = "";
 }
 
 function searchCity(city) {
-    document.body.classList.add("blur-sm");
-
     getCityCoordinates(city)
         .then(data => {
             positionSuccess({coords: data});
@@ -62,7 +56,7 @@ function getCityCoordinates(city) {
     // Restructure result
     .then(jsonData => {
         if (jsonData.length == 0) {
-            alert("Cannot find city");
+            alert("Cannot find city by name: " + city);
             document.body.classList.remove("blur-sm");
         } else {
             console.log(jsonData);
