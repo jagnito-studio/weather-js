@@ -17,6 +17,15 @@
     </style>
 </head>
 <body class="m-4 blur-sm">
+    <div class="px-8 my-8">
+        <div class="mb-1">Search</div>
+        <div class="flex items-center">
+            <input type="text" id="search-text" class="border-2 rounded border-black grow px-3 py-2 mr-4 focus:outline-none focus:border-red-600" placeholder="City Name">
+            <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 uppercase rounded" onclick="searchButtonClick()">Search</button>
+        </div>
+    </div>
+    
+
     <header class="grid grid-cols-2 mb-8">
 
         <!-- Current Temp -->
@@ -26,7 +35,7 @@
                 <span class="text-4xl" data-current-temp>30</span>
                 <span class="text-4xl">&deg;</span>
             </div>   
-            <div class="col-span-2 mx-auto mb-auto mt-2" data-current-locality></div>         
+            <div class="col-span-2 mx-auto mb-auto mt-2" data-current-city></div>         
         </div>
         <!-- Current metric -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4 py-4">

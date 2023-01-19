@@ -7,23 +7,69 @@ function positionSuccess({ coords }) {
     //getWeather(-33.96694322521347, 151.1008766116511, Intl.DateTimeFormat().resolvedOptions().timeZone)
     //.then(response => console.log(JSON.stringify(response)));
     //.then(response => console.log(response));
-    console.log(coords);
 
-    getCity(coords.latitude, coords.longitude)
-        .then(renderLocation);
-    getWeather(coords.latitude, coords.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone)
-        .then(renderWeather)
-        .catch(e => {
-            console.error(e);
-            alert("Error getting weather")
-        })
+    if (coords != null) {
+        console.log(coords);
+
+        getIPCity(coords.latitude, coords.longitude)
+            .then(renderLocation);
+        getWeather(coords.latitude, coords.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone)
+            .then(renderWeather)
+            .catch(e => {
+                console.error(e);
+                alert("Error getting weather")
+                document.body.classList.remove("blur-sm");
+            });
+
+        document.getElementById("search-text").value = "";
+    }    
 }
 function postitionError()
 {
     alert("Cannot getting your location. Please allow us to use you location and refresh the page")
+
+    document.body.classList.remove("blur-sm");
 }
 
-function getCity(lat, lon) {
+function searchButtonClick() {
+    const city = document.getElementById("search-text").value;
+    searchCity(city);
+}
+
+function searchCity(city) {
+    document.body.classList.add("blur-sm");
+
+    getCityCoordinates(city)
+        .then(data => {
+            positionSuccess({coords: data});
+        });
+}
+
+function getCityCoordinates(city) {
+    return fetch('https://nominatim.openstreetmap.org/search?city='+city+'&format=json', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    // Restructure result
+    .then(jsonData => {
+        if (jsonData.length == 0) {
+            alert("Cannot find city");
+            document.body.classList.remove("blur-sm");
+        } else {
+            console.log(jsonData);
+            return {
+                latitude: jsonData[0].lat,
+                longitude: jsonData[0].lon,
+                name: jsonData[0].display_name
+            }
+        }        
+    })
+}
+
+function getIPCity(lat, lon) {
     //https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=37.42159&longitude=-122.0837&localityLanguage=en
     return fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?localityLanguage=en&latitude='+lat+'&longitude='+lon, {
         method: 'GET',
@@ -35,6 +81,7 @@ function getCity(lat, lon) {
     // Restructure result
     .then(jsonData => {
         return {
+            city: jsonData.city,
             locality: jsonData.locality,
         //    daily: parseDailyWeather(jsonData),
         //    hourly: parseHourlyWeather(jsonData),
@@ -117,8 +164,13 @@ function parseHourlyWeather({ hourly, current_weather }) {
     }).filter(({timestamp}) => timestamp >= current_weather.time * 1000)
 }
 
-function renderLocation({locality}) {
-    setValue("current-locality", locality);
+function renderSearchCity({lat, lon, name}) {
+
+}
+
+function renderLocation({city, locality}) {
+    //setValue("current-locality", locality);
+    setValue("current-city", city);
 }
 
 function renderWeather({ current, daily, hourly })
