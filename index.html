@@ -26,10 +26,10 @@
     </div>
     
 
-    <header class="grid grid-cols-2 mb-8">
+    <header class="grid grid-cols-1 md:grid-cols-2 px-8 mb-8">
 
         <!-- Current Temp -->
-        <div class="grid grid-cols-2 mr-4 pr-4 border-r-2 border-black">
+        <div class="grid grid-cols-2 mb-4 pb-4 border-b-2 md:mr-4 md:pr-4 md:border-b-0 md:border-r-2 border-black">
             <div class="ml-auto mt-auto mr-2 text-6xl" data-current-icon></div>
             <div class="mr-auto mt-auto ml-2">
                 <span class="text-4xl" data-current-temp></span>
@@ -38,7 +38,7 @@
             <div class="col-span-2 mx-auto mb-auto mt-2" data-current-city></div>         
         </div>
         <!-- Current metric -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4 py-4">
+        <div class="grid grid-cols-3 gap-8 md:gap-4 py-4">
             <div class="flex flex-col items-center">
                 <div class="uppercase text-base font-bold">HIGH</div>
                 <div class="text-2xl">
@@ -83,7 +83,7 @@
     </div>
 
     <!-- Hourly forecast -->
-    <div class="mb-8" data-hourly-section>
+    <div class="mb-8 px-8" data-hourly-section>
     </div>
 
     <template id="day-card-template">
@@ -95,8 +95,8 @@
     </template>
 
     <template id="hourly-card-template">
-        <div class="border-b grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-4 mb-2 py-4">
-            <div class="flex flex-col items-center">
+        <div class="border-b grid grid-cols-2 md:grid-cols-7 gap-8 md:gap-4 mb-2 py-4">
+            <div class="flex flex-col items-center md:col-span-2">
                 <div class="uppercase text-sm font-bold" data-weekday></div>
                 <div class="text-2xl" data-hour></div>
             </div>
