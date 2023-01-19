@@ -8,16 +8,39 @@ function positionSuccess({ coords }) {
     //.then(response => console.log(JSON.stringify(response)));
     //.then(response => console.log(response));
     console.log(coords);
+
+    getCity(coords.latitude, coords.longitude)
+        .then(renderLocation);
     getWeather(coords.latitude, coords.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone)
-    .then(renderWeather)
-    .catch(e => {
-        console.error(e);
-        alert("Error getting weather")
-    })
+        .then(renderWeather)
+        .catch(e => {
+            console.error(e);
+            alert("Error getting weather")
+        })
 }
 function postitionError()
 {
     alert("Cannot getting your location. Please allow us to use you location and refresh the page")
+}
+
+function getCity(lat, lon) {
+    //https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=37.42159&longitude=-122.0837&localityLanguage=en
+    return fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?localityLanguage=en&latitude='+lat+'&longitude='+lon, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    // Restructure result
+    .then(jsonData => {
+        return {
+            locality: jsonData.locality,
+        //    daily: parseDailyWeather(jsonData),
+        //    hourly: parseHourlyWeather(jsonData),
+        }
+        //console.log(jsonData);
+    })
 }
 
 function getWeather(lat, lon, timezone)
@@ -92,6 +115,10 @@ function parseHourlyWeather({ hourly, current_weather }) {
             precip: Math.round(hourly.precipitation[index] * 100) / 100,
         }
     }).filter(({timestamp}) => timestamp >= current_weather.time * 1000)
+}
+
+function renderLocation({locality}) {
+    setValue("current-locality", locality);
 }
 
 function renderWeather({ current, daily, hourly })
