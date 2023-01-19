@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="all.css" />
+    <title>Weather</title>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
+</head>
+<body class="m-4 blur-sm">
+    <header class="grid grid-cols-2 mb-8">
+
+        <!-- Current Temp -->
+        <div class="grid grid-cols-2 gap-4 mr-4 pr-4 border-r-2 border-black">
+            <div class="ml-auto my-auto text-6xl" data-current-icon></div>
+            <div class="mr-auto my-auto">
+                <span class="text-4xl" data-current-temp>30</span>
+                <span class="text-4xl">&deg;</span>
+            </div>            
+        </div>
+        <!-- Current metric -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4 py-4">
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-base font-bold">HIGH</div>
+                <div class="text-2xl">
+                    <span data-current-high>31</span><span>&deg;</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-base font-bold">FL HIGH</div>
+                <div class="text-2xl">
+                    <span data-current-fl-high>31</span><span>&deg;</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-base font-bold">WIND</div>
+                <div class="text-2xl">
+                    <span data-current-wind>31</span><span class="text-base ml-1">km/h</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-base font-bold">LOW</div>
+                <div class="text-2xl">
+                    <span data-current-low>31</span><span>&deg;</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-base font-bold">FL LOW</div>
+                <div class="text-2xl">
+                    <span data-current-fl-low>31</span><span>&deg;</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-base font-bold">PRECIP</div>
+                <div class="text-2xl">
+                    <span data-current-precip>31</span><span class="text-base ml-1">mm</span>    
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 7 day forecast -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 px-8" data-day-section>
+    </div>
+
+    <!-- Hourly forecast -->
+    <div class="mb-8" data-hourly-section>
+    </div>
+
+    <template id="day-card-template">
+        <div class="border border-black rounded flex flex-col items-center py-4">
+            <div class="text-4xl mb-2" data-icon>Cloud</div>
+            <div class="uppercase text-base font-bold" data-weekday>Thursday</div>
+            <div class="text-2xl"><span data-min-temp>31</span><span>&deg;</span> - <span data-max-temp>31</span><span>&deg;</span></div>
+        </div>
+    </template>
+
+    <template id="hourly-card-template">
+        <div class="border-b grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-4 mb-2 py-4">
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-sm font-bold" data-weekday></div>
+                <div class="text-2xl" data-hour></div>
+            </div>
+            <div class="flex items-center text-4xl mx-auto" data-icon>Cloud</div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-sm font-bold">temp</div>
+                <div class="text-2xl"><span data-temp></span><span>&deg;</span></div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-sm font-bold">fl temp</div>
+                <div class="text-2xl"><span data-fl-temp></span><span>&deg;</span></div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-sm font-bold">wind</div>
+                <div class="text-2xl"><span data-wind></span><span class="text-base ml-1">km/h</span></div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="uppercase text-sm font-bold">precip</div>
+                <div class="text-2xl"><span data-precip></span><span class="text-base ml-1">mm</span></div>
+            </div>
+        </div>
+    </template>
+    
+    <script src="/main.js"></script>
+</body>
+</html>
