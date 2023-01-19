@@ -1,7 +1,7 @@
 
 //https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Australia%2FSydney
 
-navigator.geolocation.getCurrentPosition(positionSuccess, postitionError);
+localButtonClick();
 
 function positionSuccess({ coords }) {
     //getWeather(-33.96694322521347, 151.1008766116511, Intl.DateTimeFormat().resolvedOptions().timeZone)
@@ -29,6 +29,12 @@ function postitionError()
     alert("Cannot getting your location. Please allow us to use you location and refresh the page")
 
     document.body.classList.remove("blur-sm");
+}
+
+function localButtonClick() {
+    document.body.classList.add("blur-sm");
+    
+    navigator.geolocation.getCurrentPosition(positionSuccess, postitionError);
 }
 
 function searchButtonClick() {
