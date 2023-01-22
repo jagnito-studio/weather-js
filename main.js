@@ -194,13 +194,13 @@ function setValue(selector, value, {parent = document} = {}) {
 
 // Weather code
 const ICON_MAP = new Map();
-addIconMap([0, 1], "<i class='fa-solid fa-sun'></i>");
-addIconMap([2], "<i class='fa-solid fa-cloud-sun'></i>");
-addIconMap([3], "<i class='fa-solid fa-cloud'></i>");
-addIconMap([45, 48], "<i class='fa-solid fa-smog'></i>");
-addIconMap([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82], "<i class='fa-solid fa-cloud-showers-heavy'></i>");
-addIconMap([71, 73, 75, 77, 85, 86], "<i class='fa-solid fa-snowflake'></i>");
-addIconMap([95, 96, 99], "<i class='fa-solid fa-cloud-bolt'></i>");
+addIconMap([0, 1], "<i class='fa-solid fa-sun fa-spin'></i>");
+addIconMap([2], "<i class='fa-solid fa-cloud-sun fa-beat'></i>");
+addIconMap([3], "<i class='fa-solid fa-cloud fa-beat'></i>");
+addIconMap([45, 48], "<i class='fa-solid fa-smog fa-fade'></i>");
+addIconMap([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82], "<i class='fa-solid fa-cloud-showers-heavy fa-bounce'></i>");
+addIconMap([71, 73, 75, 77, 85, 86], "<i class='fa-solid fa-snowflake fa-spin'></i>");
+addIconMap([95, 96, 99], "<i class='fa-solid fa-cloud-bolt fa-bounce'></i>");
 
 function addIconMap(values, icon) {
     values.forEach(value => {
